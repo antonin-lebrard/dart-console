@@ -11,6 +11,8 @@ class InteractiveConsole extends ConsoleWrapper {
 
   _CommandMap _commandsMap;
 
+  Stdio stdio = new Stdio();
+
   InteractiveConsole() {
     onTab.listen(_waitCompletionDemand);
     onEnter.listen(_executeCommand);
@@ -66,7 +68,7 @@ class InteractiveConsole extends ConsoleWrapper {
       }
     }
     if (command == null) return;
-    command.executeCommand(line.arg);
+    command.executeCommand(line.arg, stdio);
   }
 
   /**
@@ -130,7 +132,7 @@ class _CommandWrapper {
 
   List<String> listPossibleArgs() => delegate.listPossibleArgs();
 
-  void executeCommand(String arg) => delegate.executeCommand(arg, new Stdio());
+  void executeCommand(String arg, Stdio io) => delegate.executeCommand(arg, io);
 
   static int calculateLikenessScore(String arg, String comparison){
     if (arg.length == 0) return 0;

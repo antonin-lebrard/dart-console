@@ -69,7 +69,6 @@ class ConsoleWrapper {
         _onTab.add(currentLine);
       }
       else if (codeUnits.contains(13)) { /// Enter
-        _subscription.cancel();
         _onEnter.add(currentLine);
         currentLine = new ConsoleLine();
         stdout.writeln();
